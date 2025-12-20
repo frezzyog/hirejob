@@ -1,0 +1,8 @@
+
+{
+  "name": "HireAI - NextGen Recruitment Platform",
+  "description": "A modern job application platform featuring an AI-powered career assistant, profile management, and a seamless job discovery experience using Supabase and Gemini AI.",
+  "requestFramePermissions": [
+    "geolocation"
+  ]
+}

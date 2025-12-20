@@ -1,0 +1,117 @@
+
+import { Job } from './types';
+
+export const MOCK_JOBS: Job[] = [
+  {
+    id: '1',
+    title: 'Senior Software Developer',
+    company: 'ABA Bank',
+    location: 'Phnom Penh',
+    salary_range: '$2,000 - $3,500',
+    job_type: 'Full-time',
+    experience_level: 'Senior',
+    description: 'Join Cambodia\'s leading bank to build innovative fintech solutions. Work with modern tech stack and international team.',
+    skills_required: ['Java', 'Spring Boot', 'React', 'PostgreSQL'],
+    posted_at: new Date().toISOString(),
+    logo_url: 'https://picsum.photos/seed/aba/100/100',
+    telegram_link: 'https://t.me/ababankhr'
+  },
+  {
+    id: '2',
+    title: 'UI/UX Designer',
+    company: 'Chip Mong Group',
+    location: 'Phnom Penh',
+    salary_range: '$800 - $1,500',
+    job_type: 'Full-time',
+    experience_level: 'Mid',
+    description: 'Design beautiful digital experiences for Cambodia\'s largest retail and real estate conglomerate.',
+    skills_required: ['Figma', 'Adobe XD', 'Prototyping', 'User Research'],
+    posted_at: new Date(Date.now() - 86400000).toISOString(),
+    logo_url: 'https://picsum.photos/seed/chipmong/100/100',
+    telegram_link: 'https://t.me/chipmongcareers'
+  },
+  {
+    id: '3',
+    title: 'Backend Engineer',
+    company: 'Grab Cambodia',
+    location: 'Phnom Penh',
+    salary_range: '$1,800 - $2,800',
+    job_type: 'Full-time',
+    experience_level: 'Senior',
+    description: 'Build scalable microservices for Southeast Asia\'s leading super app. Impact millions of users.',
+    skills_required: ['Node.js', 'Go', 'Kubernetes', 'AWS', 'MongoDB'],
+    posted_at: new Date(Date.now() - 172800000).toISOString(),
+    logo_url: 'https://picsum.photos/seed/grab/100/100',
+    telegram_link: 'https://t.me/grabcambodia'
+  },
+  {
+    id: '4',
+    title: 'Digital Marketing Specialist',
+    company: 'Khmer Enterprise',
+    location: 'Phnom Penh',
+    salary_range: '$500 - $900',
+    job_type: 'Full-time',
+    experience_level: 'Entry',
+    description: 'Support Cambodia\'s startup ecosystem through creative digital campaigns and social media management.',
+    skills_required: ['Facebook Ads', 'SEO', 'Content Creation', 'Analytics'],
+    posted_at: new Date(Date.now() - 259200000).toISOString(),
+    logo_url: 'https://picsum.photos/seed/khmerenterprise/100/100',
+    telegram_link: 'https://t.me/khmerenterprisejobs'
+  },
+  {
+    id: '5',
+    title: 'Full Stack Developer',
+    company: 'Sabay Digital',
+    location: 'Phnom Penh',
+    salary_range: '$1,200 - $2,200',
+    job_type: 'Full-time',
+    experience_level: 'Mid',
+    description: 'Develop gaming and entertainment platforms for Cambodia\'s digital audience.',
+    skills_required: ['React', 'Node.js', 'TypeScript', 'MySQL'],
+    posted_at: new Date(Date.now() - 345600000).toISOString(),
+    logo_url: 'https://picsum.photos/seed/sabay/100/100',
+    telegram_link: 'https://t.me/sabaydigitalhr'
+  },
+  {
+    id: '6',
+    title: 'Customer Service Representative',
+    company: 'Wing Bank',
+    location: 'Siem Reap',
+    salary_range: '$300 - $500',
+    job_type: 'Full-time',
+    experience_level: 'Entry',
+    description: 'Provide excellent customer support for Cambodia\'s leading mobile banking service.',
+    skills_required: ['Khmer', 'English', 'Customer Service', 'Communication'],
+    posted_at: new Date(Date.now() - 432000000).toISOString(),
+    logo_url: 'https://picsum.photos/seed/wing/100/100',
+    telegram_link: 'https://t.me/wingbankcareers'
+  },
+  {
+    id: '7',
+    title: 'Data Analyst',
+    company: 'Cellcard',
+    location: 'Phnom Penh',
+    salary_range: '$1,000 - $1,800',
+    job_type: 'Full-time',
+    experience_level: 'Mid',
+    description: 'Analyze telecom data to drive business decisions for one of Cambodia\'s top mobile operators.',
+    skills_required: ['Python', 'SQL', 'Power BI', 'Excel', 'Statistics'],
+    posted_at: new Date(Date.now() - 518400000).toISOString(),
+    logo_url: 'https://picsum.photos/seed/cellcard/100/100',
+    telegram_link: 'https://t.me/cellcardcareers'
+  },
+  {
+    id: '8',
+    title: 'Hotel Manager',
+    company: 'Sokha Hotels & Resorts',
+    location: 'Sihanoukville',
+    salary_range: '$1,500 - $2,500',
+    job_type: 'Full-time',
+    experience_level: 'Senior',
+    description: 'Manage luxury beachfront resort operations in Cambodia\'s premier coastal destination.',
+    skills_required: ['Hospitality Management', 'Leadership', 'Operations', 'English'],
+    posted_at: new Date(Date.now() - 604800000).toISOString(),
+    logo_url: 'https://picsum.photos/seed/sokha/100/100',
+    telegram_link: 'https://t.me/sokhahotelsjobs'
+  }
+];
