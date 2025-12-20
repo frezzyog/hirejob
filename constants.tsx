@@ -115,3 +115,14 @@ export const MOCK_JOBS: Job[] = [
     telegram_link: 'https://t.me/sokhahotelsjobs'
   }
 ];
+
+export const CAMBODIAN_COMPANIES = [
+  { id: 1, name: 'ABA Bank', logo: 'https://picsum.photos/seed/aba/100/100', jobCount: 45, industry: 'Banking', location: 'Phnom Penh' },
+  { id: 2, name: 'Wing Bank', logo: 'https://picsum.photos/seed/wing/100/100', jobCount: 32, industry: 'Fintech', location: 'Phnom Penh' },
+  { id: 3, name: 'Chip Mong Group', logo: 'https://picsum.photos/seed/chipmong/100/100', jobCount: 28, industry: 'Conglomerate', location: 'Phnom Penh' },
+  { id: 4, name: 'Grab Cambodia', logo: 'https://picsum.photos/seed/grab/100/100', jobCount: 15, industry: 'Tech', location: 'Phnom Penh' },
+  { id: 5, name: 'Cellcard', logo: 'https://picsum.photos/seed/cellcard/100/100', jobCount: 22, industry: 'Telecommunications', location: 'Phnom Penh' },
+  { id: 6, name: 'Sabay Digital', logo: 'https://picsum.photos/seed/sabay/100/100', jobCount: 12, industry: 'Digital Media', location: 'Phnom Penh' },
+  { id: 7, name: 'Smart Axiata', logo: 'https://picsum.photos/seed/smart/100/100', jobCount: 18, industry: 'Telecommunications', location: 'Phnom Penh' },
+  { id: 8, name: 'Canadia Bank', logo: 'https://picsum.photos/seed/canadia/100/100', jobCount: 25, industry: 'Banking', location: 'Phnom Penh' },
+];

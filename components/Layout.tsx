@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
-import { Moon, Sun, Languages } from 'lucide-react';
+import { Moon, Sun, Languages, Menu, X } from 'lucide-react';
 import { i18n, Language } from '../services/i18n';
 import Sidebar from './Sidebar';
 import CareerInsights from './CareerInsights';
@@ -27,6 +27,7 @@ const Layout: React.FC<LayoutProps> = ({
   userProfile
 }) => {
   const [currentLang, setCurrentLang] = useState<Language>(i18n.getLanguage());
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   useEffect(() => {
     const unsubscribe = i18n.subscribe((lang) => {
@@ -45,18 +46,31 @@ const Layout: React.FC<LayoutProps> = ({
       {/* Left Sidebar */}
       <Sidebar
         activeTab={activeTab}
-        setActiveTab={setActiveTab}
+        setActiveTab={(tab) => {
+          setActiveTab(tab);
+          setIsSidebarOpen(false);
+        }}
         userProfile={userProfile}
+        isOpen={isSidebarOpen}
+        onClose={() => setIsSidebarOpen(false)}
       />
 
       {/* Main Content Area */}
-      <div className="flex-1 flex flex-col bg-slate-50 dark:bg-slate-950">
+      <div className="flex-1 flex flex-col bg-slate-50 dark:bg-slate-950 min-w-0">
         {/* Top Header Bar */}
         <header className="sticky top-0 z-20 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border-b border-slate-200 dark:border-slate-800">
-          <div className="px-6 h-16 flex items-center justify-between">
-            <div>
-              <h2 className="text-xl font-bold capitalize">{activeTab.replace('-', ' ')}</h2>
-              <p className="text-xs text-slate-500">Find your dream job in Cambodia</p>
+          <div className="px-4 md:px-6 h-16 flex items-center justify-between gap-4">
+            <div className="flex items-center gap-4">
+              <button
+                onClick={() => setIsSidebarOpen(true)}
+                className="p-2 -ml-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 md:hidden"
+              >
+                <Menu size={24} className="text-slate-600 dark:text-slate-400" />
+              </button>
+              <div>
+                <h2 className="text-xl font-bold capitalize truncate">{activeTab.replace('-', ' ')}</h2>
+                <p className="text-xs text-slate-500 hidden sm:block">Find your dream job in Cambodia</p>
+              </div>
             </div>
 
             <div className="flex items-center gap-3">
@@ -85,8 +99,10 @@ const Layout: React.FC<LayoutProps> = ({
         </main>
       </div>
 
-      {/* Right Insights Panel */}
-      <CareerInsights profileCompletion={75} />
+      {/* Right Insights Panel - Hidden on smaller screens */}
+      <div className="hidden xl:block">
+        <CareerInsights profileCompletion={75} />
+      </div>
     </div>
   );
 };

@@ -11,6 +11,10 @@ import { Job } from './types';
 import { Search, Filter, Sparkles, TrendingUp, Heart, Loader2, Building2 } from 'lucide-react';
 import StatsBar from './components/StatsBar';
 import FeaturedCompanies from './components/FeaturedCompanies';
+import MyApplications from './components/MyApplications';
+import Companies from './components/Companies';
+import InterviewPrep from './components/InterviewPrep';
+import ResumeBuilder from './components/ResumeBuilder';
 
 const App: React.FC = () => {
   const [session, setSession] = useState<any>(null);
@@ -273,6 +277,25 @@ const App: React.FC = () => {
             )}
           </div>
         );
+
+      case 'applications':
+        return (
+          <MyApplications
+            jobs={jobs}
+            appliedJobIds={appliedJobIds}
+            onSave={handleSaveJob}
+            savedJobIds={savedJobIds}
+          />
+        );
+
+      case 'companies':
+        return <Companies />;
+
+      case 'interview-prep':
+        return <InterviewPrep />;
+
+      case 'resume':
+        return <ResumeBuilder />;
 
       case 'profile':
         return <ProfileSettings userId={session.user.id} />;

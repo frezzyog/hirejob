@@ -14,11 +14,29 @@ export interface Job {
   telegram_link?: string;
 }
 
+export interface Education {
+  id: string;
+  school: string;
+  degree: string;
+  field: string;
+  year: string;
+}
+
+export interface Certificate {
+  id: string;
+  name: string;
+  issuer: string;
+  year: string;
+  link?: string;
+}
+
 export interface UserProfile {
   id: string;
   name: string;
   email: string;
   skills: string[];
+  education: Education[];
+  certificates: Certificate[];
   experience_years: number;
   expected_salary: number;
   job_preferences: {

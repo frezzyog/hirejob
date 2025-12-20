@@ -1,17 +1,7 @@
 
 import React from 'react';
 import { Building2, ChevronRight } from 'lucide-react';
-
-const CAMBODIAN_COMPANIES = [
-    { id: 1, name: 'ABA Bank', logo: 'https://picsum.photos/seed/aba/100/100', jobCount: 45 },
-    { id: 2, name: 'Wing Bank', logo: 'https://picsum.photos/seed/wing/100/100', jobCount: 32 },
-    { id: 3, name: 'Chip Mong Group', logo: 'https://picsum.photos/seed/chipmong/100/100', jobCount: 28 },
-    { id: 4, name: 'Grab Cambodia', logo: 'https://picsum.photos/seed/grab/100/100', jobCount: 15 },
-    { id: 5, name: 'Cellcard', logo: 'https://picsum.photos/seed/cellcard/100/100', jobCount: 22 },
-    { id: 6, name: 'Sabay Digital', logo: 'https://picsum.photos/seed/sabay/100/100', jobCount: 12 },
-    { id: 7, name: 'Smart Axiata', logo: 'https://picsum.photos/seed/smart/100/100', jobCount: 18 },
-    { id: 8, name: 'Canadia Bank', logo: 'https://picsum.photos/seed/canadia/100/100', jobCount: 25 },
-];
+import { CAMBODIAN_COMPANIES } from '../constants';
 
 interface FeaturedCompaniesProps {
     onCompanyClick?: (companyName: string) => void;
