@@ -1,5 +1,6 @@
 
 import React from 'react';
+import { supabase } from '../services/supabaseClient';
 import {
     LayoutDashboard,
     Briefcase,
@@ -10,6 +11,7 @@ import {
     Settings,
     TrendingUp,
     Target,
+    Cpu,
     LogOut
 } from 'lucide-react';
 import { i18n } from '../services/i18n';
@@ -52,21 +54,21 @@ const Sidebar: React.FC<SidebarProps> = ({ activeTab, setActiveTab, userProfile,
             {/* Sidebar */}
             <aside className={`
                 fixed md:sticky top-0 left-0 z-50 h-screen
-                w-72 bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800
+                w-72 bg-white border-r border-slate-200/60
                 flex flex-col transition-transform duration-300 ease-in-out
                 ${isOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'}
             `}>
                 {/* Logo */}
-                <div className="p-6 border-b border-slate-200 dark:border-slate-800">
+                <div className="p-6 border-b border-slate-100">
                     <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 bg-gradient-to-br from-indigo-600 to-violet-600 rounded-xl flex items-center justify-center shadow-lg">
-                            <Briefcase className="text-white" size={20} />
+                        <div className="w-10 h-10 bg-indigo-600 rounded-xl flex items-center justify-center shadow-lg">
+                            <Cpu className="text-white" size={20} />
                         </div>
                         <div>
-                            <h1 className="text-xl font-bold bg-gradient-to-r from-indigo-600 to-violet-600 bg-clip-text text-transparent">
-                                {i18n.t('appName')}
+                            <h1 className="text-xl font-bold tracking-tight text-slate-900">
+                                HireJob<span className="text-indigo-600">.AI</span>
                             </h1>
-                            <p className="text-xs text-slate-500">Cambodia Jobs</p>
+                            <p className="text-xs text-slate-500 font-medium">Next-Gen Recruitment</p>
                         </div>
                     </div>
                 </div>
@@ -75,14 +77,14 @@ const Sidebar: React.FC<SidebarProps> = ({ activeTab, setActiveTab, userProfile,
                 {userProfile && (
                     <button
                         onClick={() => setActiveTab('profile')}
-                        className={`w-full p-4 border-b border-slate-200 dark:border-slate-800 text-left hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors ${activeTab === 'profile' ? 'bg-indigo-50 dark:bg-indigo-900/30' : ''}`}
+                        className={`w-full p-4 border-b border-slate-100 text-left hover:bg-slate-50 transition-colors ${activeTab === 'profile' ? 'bg-indigo-50/50' : ''}`}
                     >
                         <div className="flex items-center gap-3">
                             <div className="w-12 h-12 rounded-full bg-gradient-to-br from-indigo-400 to-violet-400 flex items-center justify-center text-white font-bold shadow-sm">
                                 {userProfile.name?.charAt(0).toUpperCase() || 'U'}
                             </div>
                             <div className="flex-1 min-w-0">
-                                <p className="font-semibold text-sm truncate text-slate-900 dark:text-slate-100">{userProfile.name || 'User'}</p>
+                                <p className="font-bold text-sm truncate text-slate-900">{userProfile.name || 'User'}</p>
                                 <p className="text-xs text-slate-500 truncate">{userProfile.email}</p>
                             </div>
                         </div>
@@ -97,8 +99,8 @@ const Sidebar: React.FC<SidebarProps> = ({ activeTab, setActiveTab, userProfile,
                                 key={item.id}
                                 onClick={() => setActiveTab(item.id)}
                                 className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all ${activeTab === item.id
-                                    ? 'bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 font-semibold shadow-sm'
-                                    : 'text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800'
+                                    ? 'bg-indigo-50 text-indigo-600 font-bold shadow-sm'
+                                    : 'text-slate-500 hover:text-slate-900 hover:bg-slate-50'
                                     }`}
                             >
                                 {item.icon}
@@ -109,16 +111,23 @@ const Sidebar: React.FC<SidebarProps> = ({ activeTab, setActiveTab, userProfile,
                 </nav>
 
                 {/* Bottom Actions */}
-                <div className="p-4 border-t border-slate-200 dark:border-slate-800">
+                <div className="p-4 border-t border-white/5">
                     <button
                         onClick={() => setActiveTab('profile')}
-                        className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all ${activeTab === 'profile'
-                            ? 'bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 font-semibold'
-                            : 'text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800'
+                        className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all mb-2 ${activeTab === 'profile'
+                            ? 'bg-indigo-50 text-indigo-600 font-bold'
+                            : 'text-slate-500 hover:text-slate-900 hover:bg-slate-50'
                             }`}
                     >
                         <Settings size={20} />
                         <span className="text-sm">{currentLang === 'km' ? 'ការកំណត់' : 'Settings'}</span>
+                    </button>
+                    <button
+                        onClick={() => supabase.auth.signOut()}
+                        className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-red-500 hover:bg-red-50 transition-all font-medium"
+                    >
+                        <LogOut size={20} />
+                        <span className="text-sm">{currentLang === 'km' ? 'ចាកចេញ' : 'Sign Out'}</span>
                     </button>
                 </div>
             </aside>

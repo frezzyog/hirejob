@@ -30,9 +30,9 @@ const CareerInsights: React.FC<CareerInsightsProps> = ({
     };
 
     return (
-        <div className="w-80 bg-slate-50 dark:bg-slate-950 border-l border-slate-200 dark:border-slate-800 h-screen sticky top-0 overflow-y-auto p-6 space-y-6">
+        <div className="w-80 bg-white border-l border-slate-200 h-screen sticky top-0 overflow-y-auto p-6 space-y-6">
             {/* Profile Strength */}
-            <div className="bg-white dark:bg-slate-900 rounded-2xl p-5 shadow-sm border border-slate-200 dark:border-slate-800">
+            <div className="bg-white rounded-2xl p-5 shadow-sm border border-slate-100">
                 <div className="flex items-center justify-between mb-3">
                     <h4 className="font-bold text-sm flex items-center gap-2">
                         <Target size={16} className="text-indigo-600" />
@@ -46,7 +46,7 @@ const CareerInsights: React.FC<CareerInsightsProps> = ({
                 <div className="w-full bg-slate-200 dark:bg-slate-800 rounded-full h-2 mb-3">
                     <div
                         className={`h-2 rounded-full transition-all ${profileCompletion >= 80 ? 'bg-green-500' :
-                                profileCompletion >= 50 ? 'bg-amber-500' : 'bg-red-500'
+                            profileCompletion >= 50 ? 'bg-amber-500' : 'bg-red-500'
                             }`}
                         style={{ width: `${profileCompletion}%` }}
                     />
@@ -59,7 +59,7 @@ const CareerInsights: React.FC<CareerInsightsProps> = ({
             </div>
 
             {/* Salary Insights for Cambodia */}
-            <div className="bg-white dark:bg-slate-900 rounded-2xl p-5 shadow-sm border border-slate-200 dark:border-slate-800">
+            <div className="bg-white rounded-2xl p-5 shadow-sm border border-slate-100">
                 <h4 className="font-bold text-sm flex items-center gap-2 mb-4">
                     <DollarSign size={16} className="text-green-600" />
                     Salary Trends (Cambodia)
@@ -81,7 +81,7 @@ const CareerInsights: React.FC<CareerInsightsProps> = ({
             </div>
 
             {/* Recommended Skills to Learn */}
-            <div className="bg-white dark:bg-slate-900 rounded-2xl p-5 shadow-sm border border-slate-200 dark:border-slate-800">
+            <div className="bg-white rounded-2xl p-5 shadow-sm border border-slate-100">
                 <h4 className="font-bold text-sm flex items-center gap-2 mb-4">
                     <TrendingUp size={16} className="text-violet-600" />
                     Skills in Demand

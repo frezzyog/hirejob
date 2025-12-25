@@ -5,7 +5,7 @@ export type Language = 'en' | 'km';
 export const translations = {
     en: {
         // Header
-        appName: 'HireAI',
+        appName: 'HireJob AI',
 
         // Navigation
         jobs: 'Jobs',

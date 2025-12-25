@@ -25,32 +25,32 @@ const StatsBar: React.FC<StatsBarProps> = ({ stats }) => {
             labelKm: 'ការងារថ្មីថ្ងៃនេះ',
             value: `${defaultStats.newJobsToday.toLocaleString()}+`,
             icon: <TrendingUp size={18} />,
-            color: 'text-green-600 dark:text-green-400',
-            bgColor: 'bg-green-50 dark:bg-green-900/20'
+            color: 'text-indigo-400',
+            bgColor: 'bg-indigo-500/10'
         },
         {
             label: 'Companies Hiring',
             labelKm: 'ក្រុមហ៊ុនកំពុងជ្រើសរើស',
             value: defaultStats.companiesHiring.toLocaleString(),
             icon: <Building2 size={18} />,
-            color: 'text-indigo-600 dark:text-indigo-400',
-            bgColor: 'bg-indigo-50 dark:bg-indigo-900/20'
+            color: 'text-indigo-400',
+            bgColor: 'bg-indigo-500/10'
         },
         {
             label: 'Total Jobs',
             labelKm: 'ការងារសរុប',
             value: `${defaultStats.totalJobs.toLocaleString()}+`,
             icon: <Briefcase size={18} />,
-            color: 'text-violet-600 dark:text-violet-400',
-            bgColor: 'bg-violet-50 dark:bg-violet-900/20'
+            color: 'text-indigo-400',
+            bgColor: 'bg-indigo-500/10'
         },
         {
             label: 'Active Job Seekers',
             labelKm: 'អ្នកស្វែងរកការងារ',
             value: `${(defaultStats.activeUsers / 1000).toFixed(1)}K`,
             icon: <Users size={18} />,
-            color: 'text-amber-600 dark:text-amber-400',
-            bgColor: 'bg-amber-50 dark:bg-amber-900/20'
+            color: 'text-indigo-400',
+            bgColor: 'bg-indigo-500/10'
         },
     ];
 
@@ -59,14 +59,14 @@ const StatsBar: React.FC<StatsBarProps> = ({ stats }) => {
             {statItems.map((stat, index) => (
                 <div
                     key={index}
-                    className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-4 shadow-sm hover:shadow-md transition-all"
+                    className="glass-card rounded-2xl p-5 transition-all hover:border-indigo-500/30"
                 >
                     <div className="flex items-start justify-between">
                         <div className="flex-1">
-                            <p className="text-xs text-slate-500 dark:text-slate-400 mb-1">{stat.label}</p>
-                            <p className="text-2xl font-bold">{stat.value}</p>
+                            <p className="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1">{stat.label}</p>
+                            <p className="text-3xl font-black text-white">{stat.value}</p>
                         </div>
-                        <div className={`${stat.bgColor} ${stat.color} p-2 rounded-lg`}>
+                        <div className={`${stat.bgColor} ${stat.color} p-2.5 rounded-xl border border-white/5`}>
                             {stat.icon}
                         </div>
                     </div>

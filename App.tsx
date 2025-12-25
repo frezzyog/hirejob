@@ -8,13 +8,15 @@ import { Auth } from './components/Auth';
 import { supabase } from './services/supabaseClient';
 import { MOCK_JOBS } from './constants';
 import { Job } from './types';
-import { Search, Filter, Sparkles, TrendingUp, Heart, Loader2, Building2 } from 'lucide-react';
+import { Search, Filter, Sparkles, TrendingUp, Heart, Loader2, Building2, ArrowRight } from 'lucide-react';
 import StatsBar from './components/StatsBar';
 import FeaturedCompanies from './components/FeaturedCompanies';
 import MyApplications from './components/MyApplications';
 import Companies from './components/Companies';
 import InterviewPrep from './components/InterviewPrep';
 import ResumeBuilder from './components/ResumeBuilder';
+import LandingPage from './components/LandingPage';
+import LoadingScreen from './components/LoadingScreen';
 
 const App: React.FC = () => {
   const [session, setSession] = useState<any>(null);
@@ -28,6 +30,8 @@ const App: React.FC = () => {
   const [savedJobIds, setSavedJobIds] = useState<string[]>([]);
   const [appliedJobIds, setAppliedJobIds] = useState<string[]>([]);
   const [userSkills] = useState<string[]>(['React', 'TypeScript', 'Node.js', 'Java']); // Mock user skills
+  const [authView, setAuthView] = useState<'login' | 'signup' | 'landing'>('landing');
+  const [isTransitioning, setIsTransitioning] = useState(false);
 
   // Calculate AI match score
   const calculateMatchScore = (job: Job): number => {
@@ -46,7 +50,18 @@ const App: React.FC = () => {
 
     // Handle auth state changes
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
-      setSession(session);
+      if (_event === 'SIGNED_IN') {
+        setIsTransitioning(true);
+        setTimeout(() => {
+          setSession(session);
+          setIsTransitioning(false);
+          setAuthView('landing');
+        }, 3000); // 3-second transition
+      } else if (_event === 'SIGNED_OUT') {
+        setSession(null);
+      } else {
+        setSession(session);
+      }
     });
 
     return () => subscription.unsubscribe();
@@ -97,17 +112,32 @@ const App: React.FC = () => {
     job.skills_required.some(skill => skill.toLowerCase().includes(searchQuery.toLowerCase()))
   );
 
-  if (loading) {
-    return (
-      <div className="min-h-screen flex flex-col items-center justify-center bg-slate-50 dark:bg-slate-950 gap-4">
-        <Loader2 className="animate-spin text-indigo-600" size={48} />
-        <p className="text-slate-500 font-medium animate-pulse">Initializing Career Hub...</p>
-      </div>
-    );
+  if (loading || isTransitioning) {
+    return <LoadingScreen />;
   }
 
+
   if (!session) {
-    return <Auth />;
+    if (authView === 'landing') {
+      return (
+        <LandingPage
+          onGetStarted={() => setAuthView('signup')}
+          onLogin={() => setAuthView('login')}
+        />
+      );
+    }
+    return (
+      <div className="relative">
+        <button
+          onClick={() => setAuthView('landing')}
+          className="absolute top-6 left-6 z-50 text-slate-400 hover:text-white flex items-center gap-2 text-sm font-medium transition-colors"
+        >
+          <ArrowRight className="rotate-180" size={18} />
+          Back to Home
+        </button>
+        <Auth />
+      </div>
+    );
   }
 
   const renderContent = () => {
@@ -163,12 +193,12 @@ const App: React.FC = () => {
                   <input
                     type="text"
                     placeholder="Search roles, companies, or tech stack..."
-                    className="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl pl-12 pr-4 py-4 text-sm focus:ring-2 focus:ring-indigo-500 shadow-sm outline-none transition-all"
+                    className="w-full bg-white border border-slate-200 rounded-2xl pl-12 pr-4 py-4 text-sm focus:ring-2 focus:ring-indigo-500 shadow-sm outline-none transition-all"
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
                   />
                 </div>
-                <button className="flex items-center justify-center gap-2 px-6 py-4 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl text-sm font-semibold hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors shadow-sm">
+                <button className="flex items-center justify-center gap-2 px-6 py-4 bg-white border border-slate-200 rounded-2xl text-sm font-semibold hover:bg-slate-50 transition-colors shadow-sm">
                   <Filter size={18} />
                   Filters
                 </button>
@@ -311,6 +341,10 @@ const App: React.FC = () => {
       setActiveTab={setActiveTab}
       isDarkMode={isDarkMode}
       toggleDarkMode={toggleDarkMode}
+      userProfile={session?.user?.user_metadata ? {
+        name: session.user.user_metadata.full_name || session.user.email?.split('@')[0],
+        email: session.user.email
+      } : undefined}
     >
       {renderContent()}
     </Layout>

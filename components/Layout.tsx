@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
-import { Moon, Sun, Languages, Menu, X } from 'lucide-react';
+import { Moon, Sun, Languages, Menu, X, Cpu } from 'lucide-react';
 import { i18n, Language } from '../services/i18n';
 import Sidebar from './Sidebar';
 import CareerInsights from './CareerInsights';
@@ -42,7 +42,7 @@ const Layout: React.FC<LayoutProps> = ({
   };
 
   return (
-    <div className={`min-h-screen flex ${isDarkMode ? 'dark' : ''}`}>
+    <div className={`min-h-screen flex bg-[#f8fafc] text-slate-900 selection:bg-indigo-500/10`}>
       {/* Left Sidebar */}
       <Sidebar
         activeTab={activeTab}
@@ -56,36 +56,44 @@ const Layout: React.FC<LayoutProps> = ({
       />
 
       {/* Main Content Area */}
-      <div className="flex-1 flex flex-col bg-slate-50 dark:bg-slate-950 min-w-0">
+      <div className="flex-1 flex flex-col min-w-0 relative">
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-96 bg-hero-glow -z-10 opacity-20 pointer-events-none" />
+
         {/* Top Header Bar */}
-        <header className="sticky top-0 z-20 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border-b border-slate-200 dark:border-slate-800">
+        <header className="sticky top-0 z-20 bg-white/80 backdrop-blur-md border-b border-slate-200/60 shadow-sm">
           <div className="px-4 md:px-6 h-16 flex items-center justify-between gap-4">
             <div className="flex items-center gap-4">
               <button
                 onClick={() => setIsSidebarOpen(true)}
-                className="p-2 -ml-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 md:hidden"
+                className="p-2 -ml-2 rounded-xl hover:bg-slate-100 md:hidden text-slate-600"
               >
-                <Menu size={24} className="text-slate-600 dark:text-slate-400" />
+                <Menu size={24} />
               </button>
-              <div>
-                <h2 className="text-xl font-bold capitalize truncate">{activeTab.replace('-', ' ')}</h2>
-                <p className="text-xs text-slate-500 hidden sm:block">Find your dream job in Cambodia</p>
+              <div className="flex items-center gap-3 md:hidden">
+                <div className="w-8 h-8 bg-indigo-600 rounded-lg flex items-center justify-center">
+                  <Cpu size={16} className="text-white" />
+                </div>
+                <span className="font-black tracking-tighter">HireJob<span className="text-indigo-500">.AI</span></span>
+              </div>
+              <div className="hidden md:block">
+                <h2 className="text-xl font-bold tracking-tight text-slate-900 capitalize">{activeTab.replace('-', ' ')}</h2>
+                <p className="text-xs text-slate-500 font-medium">Next-Gen Recruitment Platform</p>
               </div>
             </div>
 
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-2">
               <button
                 onClick={toggleLanguage}
-                className="flex items-center gap-1.5 px-3 py-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors text-sm font-medium"
+                className="flex items-center gap-1.5 px-3 py-2 rounded-xl hover:bg-slate-100 transition-colors text-sm font-bold text-slate-500 hover:text-slate-900"
               >
                 <Languages size={16} />
                 <span>{currentLang.toUpperCase()}</span>
               </button>
               <button
                 onClick={toggleDarkMode}
-                className="p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+                className="p-2 rounded-xl hover:bg-slate-100 transition-colors text-slate-400 hover:text-amber-500"
               >
-                {isDarkMode ? <Sun size={20} className="text-amber-400" /> : <Moon size={20} className="text-slate-600" />}
+                {isDarkMode ? <Sun size={20} /> : <Moon size={20} />}
               </button>
             </div>
           </div>
