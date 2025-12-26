@@ -42,8 +42,8 @@ export class CareerAssistant {
   async processMessage(userMessage: string, availableJobs: Job[]) {
     try {
       // Create a new instance right before the call as per guidelines
-      const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
-      
+      const ai = new GoogleGenAI({ apiKey: import.meta.env.VITE_GEMINI_API_KEY });
+
       const response = await ai.models.generateContent({
         model: 'gemini-3-flash-preview',
         contents: userMessage,
@@ -54,7 +54,7 @@ export class CareerAssistant {
       });
 
       const functionCalls = response.functionCalls;
-      
+
       if (functionCalls && functionCalls.length > 0) {
         const fc = functionCalls[0];
         if (fc.name === 'searchJobs') {
@@ -81,7 +81,7 @@ export class CareerAssistant {
               systemInstruction: this.systemPrompt,
             }
           });
-          
+
           return {
             text: finalResponse.text || "I found some matching jobs for you!",
             foundJobs: filteredJobs

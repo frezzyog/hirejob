@@ -32,6 +32,7 @@ const App: React.FC = () => {
   const [userSkills] = useState<string[]>(['React', 'TypeScript', 'Node.js', 'Java']); // Mock user skills
   const [authView, setAuthView] = useState<'login' | 'signup' | 'landing'>('landing');
   const [isTransitioning, setIsTransitioning] = useState(false);
+  const isInitialLoad = React.useRef(true);
 
   // Calculate AI match score
   const calculateMatchScore = (job: Job): number => {
@@ -46,11 +47,13 @@ const App: React.FC = () => {
     supabase.auth.getSession().then(({ data: { session } }) => {
       setSession(session);
       setLoading(false);
+      isInitialLoad.current = false;
     });
 
     // Handle auth state changes
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
-      if (_event === 'SIGNED_IN') {
+      // Only show transition animation on actual sign in, not tab refocus
+      if (_event === 'SIGNED_IN' && isInitialLoad.current === false) {
         setIsTransitioning(true);
         setTimeout(() => {
           setSession(session);
@@ -60,6 +63,7 @@ const App: React.FC = () => {
       } else if (_event === 'SIGNED_OUT') {
         setSession(null);
       } else {
+        // For TOKEN_REFRESHED or other events, just update session silently
         setSession(session);
       }
     });

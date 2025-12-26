@@ -4,6 +4,8 @@ import { Send, User, Bot, Sparkles, Loader2 } from 'lucide-react';
 import { Message, Job } from '../types';
 import { CareerAssistant } from '../services/geminiService';
 import JobCard from './JobCard';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 
 interface ChatAssistantProps {
   availableJobs: Job[];
@@ -21,7 +23,7 @@ const ChatAssistant: React.FC<ChatAssistantProps> = ({ availableJobs }) => {
   const [inputValue, setInputValue] = useState('');
   const [isTyping, setIsTyping] = useState(false);
   const [foundJobs, setFoundJobs] = useState<Job[]>([]);
-  
+
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const assistant = useRef(new CareerAssistant());
 
@@ -68,22 +70,24 @@ const ChatAssistant: React.FC<ChatAssistantProps> = ({ availableJobs }) => {
     <div className="flex flex-col h-[calc(100vh-12rem)] max-w-4xl mx-auto">
       <div className="flex-1 overflow-y-auto p-4 space-y-6">
         {messages.map((msg) => (
-          <div 
-            key={msg.id} 
+          <div
+            key={msg.id}
             className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}
           >
             <div className={`flex gap-3 max-w-[85%] ${msg.role === 'user' ? 'flex-row-reverse' : 'flex-row'}`}>
-              <div className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 ${
-                msg.role === 'user' ? 'bg-indigo-600' : 'bg-slate-100 dark:bg-slate-800'
-              }`}>
+              <div className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 ${msg.role === 'user' ? 'bg-indigo-600' : 'bg-slate-100 dark:bg-slate-800'
+                }`}>
                 {msg.role === 'user' ? <User size={16} className="text-white" /> : <Bot size={16} className="text-indigo-600" />}
               </div>
-              <div className={`p-4 rounded-2xl text-sm leading-relaxed ${
-                msg.role === 'user' 
-                  ? 'bg-indigo-600 text-white rounded-tr-none' 
+              <div className={`p-4 rounded-2xl text-sm leading-relaxed ${msg.role === 'user'
+                  ? 'bg-indigo-600 text-white rounded-tr-none'
                   : 'bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-tl-none shadow-sm'
-              }`}>
-                {msg.content}
+                }`}>
+                <div className="markdown-content">
+                  <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                    {msg.content}
+                  </ReactMarkdown>
+                </div>
                 <div className={`text-[10px] mt-2 opacity-60 ${msg.role === 'user' ? 'text-right' : 'text-left'}`}>
                   {msg.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                 </div>
